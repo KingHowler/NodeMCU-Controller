@@ -11,6 +11,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            padding-top: 10%;
             background-color: #f0f2f5;
             margin: 0;
         }
@@ -71,6 +72,31 @@
             color: #333;
             margin-bottom: 20px;
         }
+        @media (max-width: 600px) {
+            .button-container {
+                display: grid;
+                grid-template-columns: repeat(1, 150px); /* 1 column with fixed width */
+                grid-template-rows: repeat(12, 1fr); /* 12 rows with flexible height */
+                justify-content: center; /* Center align horizontally */
+                align-items: center; /* Center align vertically */
+                max-width: 100%; /* Ensure the container doesn't exceed the viewport width */
+                margin: 0 auto; /* Center align container horizontally */
+            }
+
+            .button-container button {
+                width: 150px; /* Fixed width for buttons */
+            }
+        }
+        @media (max-width: 350px) {
+            body {
+                padding-top: 15%;
+            }
+        }
+        @media (max-width: 270px) {
+            body {
+                padding-top: 30%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -104,4 +130,3 @@
     </script>
 
 </body>
-</html>
