@@ -19,6 +19,8 @@ bool A0S = false;
 
 #define wifi_led 2
 
+String commands[2];
+
 void setup() {
 
   Serial.begin(9600);
@@ -56,6 +58,22 @@ void loop() {
     String data = request.substring(5, l - 9);
     Serial.println("DATA Recieved : " + data);
     Serial.println();
+
+    int slashIndex = data.indexOf('/');
+
+    commands[0] = data.substring(0, slashIndex);
+    commands[1] = data.substring(slashIndex + 1);
+
+    if (commands[0] == "D0") { D0S = (commands[1] == "1"); }
+    else if (commands[0] == "D1") { D1S = (commands[1] == "1"); }
+    else if (commands[0] == "D2") { D2S = (commands[1] == "1"); }
+    else if (commands[0] == "D3") { D3S = (commands[1] == "1"); }
+    else if (commands[0] == "D4") { D4S = (commands[1] == "1"); }
+    else if (commands[0] == "D5") { D5S = (commands[1] == "1"); }
+    else if (commands[0] == "D6") { D6S = (commands[1] == "1"); }
+    else if (commands[0] == "D7") { D7S = (commands[1] == "1"); }
+    else if (commands[0] == "D8") { D8S = (commands[1] == "1"); }
+    else if (commands[0] == "A0") { A0S = (commands[1] == "1"); }
 
 
 
@@ -234,6 +252,18 @@ void loop() {
     clientobj.print(response);
     delay(100);
     clientobj.stop();
+
+    digitalWrite(D0, D0S);
+    digitalWrite(D1, D1S);
+    digitalWrite(D2, D2S);
+    digitalWrite(D3, D3S);
+    digitalWrite(D4, D4S);
+    digitalWrite(D5, D5S);
+    digitalWrite(D6, D6S);
+    digitalWrite(D7, D7S);
+    digitalWrite(D8, D8S);
+    digitalWrite(A0, A0S);
+
   }
 }
 void connect(String ssid,String pass){
