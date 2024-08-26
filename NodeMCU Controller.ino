@@ -15,7 +15,7 @@ bool D8S = false;
 bool A0S = false;
 
 #define SSID "my_wifi"
-#define PASSWORD "password"
+#define PASSWORD "my_password"
 
 #define wifi_led 2
 
@@ -48,6 +48,10 @@ void loop() {
 
 
   clientobj = server.available();
+  if(Serial.read() == 'i') {
+    Serial.print("Local IP : ");
+    Serial.println(WiFi.localIP());
+  }
   if (clientobj) {
     String request = clientobj.readStringUntil('\n');
     Serial.println(request);
@@ -64,16 +68,20 @@ void loop() {
     commands[0] = data.substring(0, slashIndex);
     commands[1] = data.substring(slashIndex + 1);
 
-    if (commands[0] == "D0") { D0S = (commands[1] == "1"); }
-    else if (commands[0] == "D1") { D1S = (commands[1] == "1"); }
-    else if (commands[0] == "D2") { D2S = (commands[1] == "1"); }
-    else if (commands[0] == "D3") { D3S = (commands[1] == "1"); }
-    else if (commands[0] == "D4") { D4S = (commands[1] == "1"); }
-    else if (commands[0] == "D5") { D5S = (commands[1] == "1"); }
-    else if (commands[0] == "D6") { D6S = (commands[1] == "1"); }
-    else if (commands[0] == "D7") { D7S = (commands[1] == "1"); }
-    else if (commands[0] == "D8") { D8S = (commands[1] == "1"); }
-    else if (commands[0] == "A0") { A0S = (commands[1] == "1"); }
+    Serial.println("Pin : " + commands[0]);
+    Serial.println("State : " + commands[1]);
+    Serial.println();
+
+    if (commands[0] == "D0") { D0S = commands[1].toInt(); }
+    if (commands[0] == "D1") { D1S = commands[1].toInt(); }
+    if (commands[0] == "D2") { D2S = commands[1].toInt(); }
+    if (commands[0] == "D3") { D3S = commands[1].toInt(); }
+    if (commands[0] == "D4") { D4S = commands[1].toInt(); }
+    if (commands[0] == "D5") { D5S = commands[1].toInt(); }
+    if (commands[0] == "D6") { D6S = commands[1].toInt(); }
+    if (commands[0] == "D7") { D7S = commands[1].toInt(); }
+    if (commands[0] == "D8") { D8S = commands[1].toInt(); }
+    if (commands[0] == "A0") { A0S = commands[1].toInt(); }
 
 
 
@@ -91,7 +99,7 @@ void loop() {
     response += "    justify-content: center;";
     response += "    align-items: center;";
     response += "    height: 100vh;";
-    response += "    padding-top: 10%;";
+    response += "    padding-top: 0%;";
     response += "    background-color: #f0f2f5;";
     response += "    margin: 0;";
     response += "}";
@@ -161,6 +169,7 @@ void loop() {
     response += "        align-items: center;";
     response += "        max-width: 100%;";
     response += "        margin: 0 auto;";
+    response += "        padding-top: 10%;";
     response += "    }";
     response += "    .button-container button {";
     response += "        width: 150px;";
